@@ -6,7 +6,6 @@
 
 ## Tecnologías
 - Python
-- Django
 
 
 ## Cómo ejecutar el proyecto
@@ -26,5 +25,9 @@ cd ./TendenciasJarrisonCano
 python -m venv env
 ```
 
-4.
+4. Ejecutar el siguiente comando
+
+```
+python ./main.py
+```
 
