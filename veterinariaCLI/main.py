@@ -1,32 +1,38 @@
 from models import model
 from service import login
 from routes import routes
+from utils import log
 
-veterinary = model.Veterinary()
-person1 = model.Person(
+hospital = model.Hospital()
+humanResources1 = model.HumanResources(
     id=1,
-    name="Jarrison",
-    role=model.Roles,
-    password="Admin123",
-    username="jarrisoncano",
-    age=21,
+    name="Jarrison Cano",
+    username="jarrison",
+    address="calle 123",
+    birthDate="28/01/2003",
+    email="jarrison@correo.com",
+    password="Jarrison123",
+    phone="1234567890",
 )
 
-veterinary.persons.append(person1)
+hospital.humanResources.append(humanResources1)
 
 
 while True:
-    option = input("1. iniciar sesion\n2. salir\n")
+    option = log.inputQuestion("1. iniciar sesion\n2. salir\n")
 
     if option == "1":
-        username = input("Ingrese su usuario: ")
-        password = input("Ingrese su contraseña: ")
-        try:
-            user = login.loginService(veterinary, username, password)
-            routes.Router(user)
+        username = log.inputOption("Ingrese su usuario: ")
+        password = log.inputOption("Ingrese su contraseña: ")
 
-        except Exception as error:
-            print(error, "\n")
-    else:
-        print("Adios")
+        user = login.loginService(hospital, username, password)
+        if user == None:
+            continue
+        else:
+            routes.Router(user, hospital)
+
+    elif option == "2":
         break
+    else:
+        log.printError("Opcion no valida")
+        continue

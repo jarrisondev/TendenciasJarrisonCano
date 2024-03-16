@@ -1,5 +1,5 @@
 import datetime
-from models import Roles
+from models import model
 
 
 def stringValidator(value: str):
@@ -47,7 +47,7 @@ def birthDateValidator(birthDate: str):
 
 
 def phoneValidator(phone: int):
-    if len(phone) < 10 and len(phone) > 1 and phone.isdigit():
+    if len(phone) <= 10 and len(phone) >= 1 and phone.isdigit():
         return phone
     else:
         raise Exception("El numero de telefono no es valido")
@@ -93,7 +93,20 @@ def addressValidator(address: str):
 
 
 def roleValidator(role: str):
-    if role in Roles:
+    if (
+        role == model.Roles.administrative
+        or role == model.Roles.informationSupport
+        or role == model.Roles.nurse
+        or role == model.Roles.doctor
+        or role == model.Roles.humanResources
+    ):
         return role
     else:
         raise Exception("El rol no es valido")
+
+
+def genderValidator(gender: str):
+    if gender == model.Gender.male or gender == model.Gender.female:
+        return gender
+    else:
+        raise Exception("El genero no es valido")

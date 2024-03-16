@@ -1,12 +1,17 @@
-def loginService(veterinary, username, password):
-    user = None
+from models import model
+from utils import log
 
-    for person in veterinary.persons:
+
+def loginService(hospital: model.Hospital, username, password):
+    user = None
+    employees = hospital.getEmployees()
+
+    for person in employees:
         if person.username == username and person.password == password:
             user = person
-            print(f"Bienvenido {user.name}", "\n")
+            log.printSuccess(f"Bienvenido {user.name}")
             break
     if user == None:
-        raise Exception("Usuario o contraseña incorrectos")
+        log.printError("Usuario o contraseña incorrectos")
 
     return user

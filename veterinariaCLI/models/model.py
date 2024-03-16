@@ -1,25 +1,31 @@
 import datetime
 from typing import List
-from utils import validators
+from utils import validators, log
 
-Roles = {
-    "administrative": 1,
-    "informationSupport": 2,
-    "nurse": 3,
-    "doctor": 4,
-    "humanResources": 5,
-}
+
+class Roles:
+    administrative = "Administrativo"
+    informationSupport = "Soporte de informacion"
+    nurse = "Enfermero"
+    doctor = "Doctor"
+    humanResources = "Recursos Humanos"
+
+
+class Gender:
+    female = "Femenino"
+    male = "Masculino"
 
 
 class Person:
     def __init__(
         self, id, name, role, username, password, email, phone, birthDate, address
     ):
+
         self.name: str = validators.stringValidator(name)
         self.id: int = id
         self.email: str = validators.emailValidator(email)
-        self.phone: int = validators.phoneValidator(phone)
-        self.birthDate: str = validators.birthvalidators.DateValidator(birthDate)
+        self.phone: str = validators.phoneValidator(phone)
+        self.birthDate: str = validators.birthDateValidator(birthDate)
         self.address: str = validators.addressValidator(address)
         self.role: str = validators.roleValidator(role)
         self.username: str = validators.usernameValidator(username)
@@ -48,14 +54,15 @@ class Patient:
     ):
         self.id: int = id
         self.name: str = validators.stringValidator(name)
-        self.birthDate: str = validators.birthvalidators.DateValidator(birthDate)
+        self.birthDate: str = validators.birthDateValidator(birthDate)
         self.address: str = validators.addressValidator(address)
-        self.phone: int = validators.phoneValidator(phone)
+        self.phone: str = validators.phoneValidator(phone)
         self.email: str = validators.emailValidator(email)
+        self.gender: str = validators.genderValidator(gender)
         self.emergencyContactName: str = validators.stringValidator(
             emergencyContactName
         )
-        self.emergencyContactPhone: int = validators.phoneValidator(
+        self.emergencyContactPhone: str = validators.phoneValidator(
             emergencyContactPhone
         )
         self.emergencyContactRelationship: str = validators.stringValidator(
@@ -79,6 +86,7 @@ class Patient:
 
 
 class HumanResources(Person):
+
     def __init__(
         self,
         id,
@@ -93,7 +101,7 @@ class HumanResources(Person):
         super().__init__(
             id,
             name,
-            Roles["humanResources"],
+            Roles.humanResources,
             username,
             password,
             email,
@@ -103,11 +111,34 @@ class HumanResources(Person):
         )
 
     def createPerson(
-        id, name, role, username, password, email, phone, birthDate, address
+        self,
+        id,
+        name,
+        role,
+        username,
+        password,
+        email,
+        phone,
+        birthDate,
+        address,
     ):
+
         return Person(
-            id, name, role, username, password, email, phone, birthDate, address
+            id,
+            name,
+            role,
+            username,
+            password,
+            email,
+            phone,
+            birthDate,
+            address,
         )
+
+    def printEmployees(self, hospital):
+        employees = hospital.getEmployees()
+        for employee in employees:
+            log.printInfo(f"Nombre: {employee.name} - Rol: {employee.role}")
 
 
 class Administrative(Person):
@@ -125,7 +156,7 @@ class Administrative(Person):
         super().__init__(
             id,
             name,
-            Roles["administrative"],
+            Roles.administrative,
             username,
             password,
             email,
@@ -135,6 +166,7 @@ class Administrative(Person):
         )
 
     def createPatient(
+        self,
         id,
         name,
         birthDate,
@@ -145,8 +177,13 @@ class Administrative(Person):
         emergencyContactName,
         emergencyContactPhone,
         emergencyContactRelationship,
+        medicalInsuranceName,
+        medicalInsuranceNumber,
+        medicalInsuranceStatus,
+        medicalInsuranceExpirationDate,
     ):
         return Patient(
+            self,
             id,
             name,
             birthDate,
@@ -157,6 +194,10 @@ class Administrative(Person):
             emergencyContactName,
             emergencyContactPhone,
             emergencyContactRelationship,
+            medicalInsuranceName,
+            medicalInsuranceNumber,
+            medicalInsuranceStatus,
+            medicalInsuranceExpirationDate,
         )
 
 
@@ -175,7 +216,7 @@ class InformationSupport(Person):
         super().__init__(
             id,
             name,
-            Roles["informationSupport"],
+            Roles.informationSupport,
             username,
             password,
             email,
@@ -200,11 +241,14 @@ class Hospital:
         self.medicines: List[Medicine] = []
 
     def getEmployees(self):
-        employees: Person = []
-        employees.append(self.administratives)
-        employees.append(self.humanResources)
-        employees.append(self.informationSupports)
-        employees.append(self.nurses)
-        employees.append(self.doctors)
-
+        employees: Person = [
+            *self.humanResources,
+            *self.administratives,
+            *self.informationSupports,
+            *self.nurses,
+            *self.doctors,
+        ]
         return employees
+
+    def getPatients(self):
+        return self.patients
