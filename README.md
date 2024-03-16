@@ -20,12 +20,7 @@ git clone https://github.com/jarrisondev/TendenciasJarrisonCano.git
 cd ./TendenciasJarrisonCano
 ```
 
-3. Crear el entorno virtual. ejecute el siguiente comando en la terminal
-```py
-python -m venv env
-```
-
-4. Ejecutar el siguiente comando
+3. Ejecutar el siguiente comando
 
 ```py
 python ./main.py
