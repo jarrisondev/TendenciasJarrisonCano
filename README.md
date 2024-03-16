@@ -1,6 +1,6 @@
 # Tendencias de desarrollo de software
 
-##Integrantes
+## Integrantes
 - Jarrison Cano [GitHub](https://github.jarrison.dev)
 
 
