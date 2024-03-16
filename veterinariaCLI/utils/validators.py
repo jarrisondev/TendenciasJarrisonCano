@@ -10,7 +10,7 @@ def stringValidator(value: str):
 
 
 def integerValidator(value: int):
-    if value.isdigit():
+    if value != None and isinstance(value, int):
         return value
     else:
         raise Exception("El valor ingresado no es un numero")
@@ -46,7 +46,7 @@ def birthDateValidator(birthDate: str):
         raise Exception("La fecha de nacimiento no es valida")
 
 
-def phoneValidator(phone: int):
+def phoneValidator(phone: str):
     if len(phone) <= 10 and len(phone) >= 1 and phone.isdigit():
         return phone
     else:

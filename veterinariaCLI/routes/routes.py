@@ -1,6 +1,7 @@
-from models import model
 from utils import log
+from models import model
 from service import humanResources
+from service import administrative
 
 
 def HumanResourcesRoute(user: model.HumanResources, hospital: model.Hospital):
@@ -20,14 +21,18 @@ def HumanResourcesRoute(user: model.HumanResources, hospital: model.Hospital):
             log.printError("Opcion no valida")
 
 
-def AdministrativeRoute(user: model.HumanResources, hospital: model.Hospital):
+def AdministrativeRoute(user: model.Administrative, hospital: model.Hospital):
 
     while True:
-        option = log.inputQuestion("1. Registrar Paciente \n2. Salir \n")
+        option = log.inputQuestion(
+            "1. Registrar Paciente \n2. Ver pacientes \n3. Salir"
+        )
 
         if option == "1":
-            humanResources.createUser(user, hospital)
+            administrative.createPatient(user, hospital)
         elif option == "2":
+            administrative.printPatients(user, hospital)
+        elif option == "3":
             break
         else:
             log.printError("Opcion no valida")
@@ -38,7 +43,7 @@ def Router(user, hospital):
     if user.role == model.Roles.humanResources:
         HumanResourcesRoute(user, hospital)
     elif user.role == model.Roles.administrative:
-        print("Bienvenido")
+        AdministrativeRoute(user, hospital)
     elif user.role == model.Roles.informationSupport:
         print("Bienvenido")
     elif user.role == model.Roles.nurse:

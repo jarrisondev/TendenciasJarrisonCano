@@ -16,6 +16,30 @@ class Gender:
     male = "Masculino"
 
 
+class Hospital:
+    def __init__(self):
+        self.patients: List[Patient] = []
+        self.humanResources: List[HumanResources] = []
+        self.administratives: List[Administrative] = []
+        self.informationSupports: List[InformationSupport] = []
+        self.nurses = []
+        self.doctors = []
+        self.medicines: List[Medicine] = []
+
+    def getEmployees(self):
+        employees: Person = [
+            *self.humanResources,
+            *self.administratives,
+            *self.informationSupports,
+            *self.nurses,
+            *self.doctors,
+        ]
+        return employees
+
+    def getPatients(self):
+        return self.patients
+
+
 class Person:
     def __init__(
         self, id, name, role, username, password, email, phone, birthDate, address
@@ -183,7 +207,6 @@ class Administrative(Person):
         medicalInsuranceExpirationDate,
     ):
         return Patient(
-            self,
             id,
             name,
             birthDate,
@@ -199,6 +222,11 @@ class Administrative(Person):
             medicalInsuranceStatus,
             medicalInsuranceExpirationDate,
         )
+
+    def printPatients(self, hospital: Hospital):
+        patients = hospital.getPatients()
+        for patient in patients:
+            log.printInfo(f"Nombre: {patient.name}")
 
 
 class InformationSupport(Person):
@@ -228,27 +256,3 @@ class InformationSupport(Person):
 
 class Medicine:
     pass
-
-
-class Hospital:
-    def __init__(self):
-        self.patients: List[Patient] = []
-        self.humanResources: List[HumanResources] = []
-        self.administratives: List[Administrative] = []
-        self.informationSupports: List[InformationSupport] = []
-        self.nurses = []
-        self.doctors = []
-        self.medicines: List[Medicine] = []
-
-    def getEmployees(self):
-        employees: Person = [
-            *self.humanResources,
-            *self.administratives,
-            *self.informationSupports,
-            *self.nurses,
-            *self.doctors,
-        ]
-        return employees
-
-    def getPatients(self):
-        return self.patients
