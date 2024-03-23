@@ -1,4 +1,4 @@
-from models import Person
+from models import Person, Medicine
 from models import Enums
 
 
@@ -25,3 +25,14 @@ class InformationSupport(Person.Person):
             birthDate,
             address,
         )
+
+    def createMedicine(self, name, price, quantity):
+        return Medicine.Medicine(name, price, quantity)
+
+    def printMedicines(self, medicines):
+        for medicine in medicines:
+            medicine.showMedicine()
+
+    def updateMedicine(self, medicine, quantity, price):
+        medicine.setQuantity(quantity)
+        medicine.setPrice(price)

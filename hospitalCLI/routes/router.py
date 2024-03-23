@@ -1,5 +1,4 @@
-from routes import administrativeRoute
-from routes import humanResourcesRoute
+from routes import administrativeRoute, informationSupportRoute, humanResourcesRoute
 from models import Enums
 
 
@@ -10,11 +9,11 @@ def Router(user, hospital):
     elif user.role == Enums.Roles.administrative:
         administrativeRoute.AdministrativeRoute(user, hospital)
     elif user.role == Enums.Roles.informationSupport:
-        print("Bienvenido")
+        informationSupportRoute.InformationSupportRoute(user, hospital)
     elif user.role == Enums.Roles.nurse:
-        print("Bienvenido")
+        print("Bienvenido enfermera")
     elif user.role == Enums.Roles.doctor:
-        print("Bienvenido")
+        print("Bienvenido doctor")
 
     else:
         raise Exception("Rol no valido")

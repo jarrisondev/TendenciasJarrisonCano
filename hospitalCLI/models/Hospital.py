@@ -31,3 +31,12 @@ class Hospital:
 
     def getPatients(self):
         return self.patients
+
+    def getMedicines(self):
+        return self.medicines
+
+    def getMedicineByName(self, name):
+        for medicine in self.medicines:
+            if medicine.name == name:
+                return medicine
+        return None

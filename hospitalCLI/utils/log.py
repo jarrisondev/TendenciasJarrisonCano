@@ -19,7 +19,7 @@ def printSuccess(message):
 
 
 def printInfo(message):
-    print(f"\n{Colors.OKCYAN}{message}{Colors.ENDC} \n")
+    print(f"\n{Colors.OKCYAN}{message}{Colors.ENDC}")
 
 
 def inputQuestion(question):

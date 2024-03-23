@@ -1,5 +1,5 @@
 from models import Enums
-from models import HumanResources, Administrative, Patient, Hospital
+from models import HumanResources, Administrative, Patient, Hospital, InformationSupport
 
 
 def createHospital():
@@ -41,8 +41,20 @@ def createHospital():
         medicalInsuranceExpirationDate="28/01/2026",
     )
 
+    informationSupport1 = InformationSupport.InformationSupport(
+        id=4,
+        name="Jaime",
+        username="jaime",
+        address="calle 123",
+        birthDate="28/01/2003",
+        email="jaime@correo.com",
+        password="JaimeH123",
+        phone="1234567890",
+    )
+
     hospital.humanResources.append(humanResources1)
     hospital.administratives.append(administrative1)
     hospital.patients.append(patient1)
+    hospital.informationSupports.append(informationSupport1)
 
     return hospital
