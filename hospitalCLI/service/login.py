@@ -1,8 +1,8 @@
-from models import model
+from models import Hospital
 from utils import log
 
 
-def loginService(hospital: model.Hospital, username, password):
+def loginService(hospital: Hospital.Hospital, username, password):
     user = None
     employees = hospital.getEmployees()
 

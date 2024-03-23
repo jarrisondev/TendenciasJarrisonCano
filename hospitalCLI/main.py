@@ -1,10 +1,11 @@
-from models import model
+from models import Enums
+from models import HumanResources, Administrative, Patient, Hospital
 from service import login
-from routes import routes
+from routes import router
 from utils import log
 
-hospital = model.Hospital()
-humanResources1 = model.HumanResources(
+hospital = Hospital.Hospital()
+humanResources1 = HumanResources.HumanResources(
     id=1,
     name="Jarrison Cano",
     username="jarrison",
@@ -14,7 +15,7 @@ humanResources1 = model.HumanResources(
     password="Jarrison123",
     phone="1234567890",
 )
-administrative1 = model.Administrative(
+administrative1 = Administrative.Administrative(
     id=2,
     name="Juan Perez",
     username="juan",
@@ -24,16 +25,15 @@ administrative1 = model.Administrative(
     password="JuanPerez123",
     phone="1234567890",
 )
-
-patient1 = model.Patient(
+patient1 = Patient.Patient(
     id=3,
     name="Camilo",
     address="calle 123",
     birthDate="28/01/2003",
     email="camilo@correo.com",
     phone="1234567890",
-    gender=model.Gender.male,
-    emergencyContactName="Magdali",
+    gender=Enums.Gender.male,
+    emergencyContactName="Maria",
     emergencyContactPhone="1234567890",
     emergencyContactRelationship="Madre",
     medicalInsuranceName="Sura",
@@ -58,7 +58,7 @@ while True:
         if user == None:
             continue
         else:
-            routes.Router(user, hospital)
+            router.Router(user, hospital)
 
     elif option == "2":
         break

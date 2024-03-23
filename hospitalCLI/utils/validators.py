@@ -1,5 +1,5 @@
 import datetime
-from models import model
+from models import Enums
 
 
 def stringValidator(value: str):
@@ -94,11 +94,11 @@ def addressValidator(address: str):
 
 def roleValidator(role: str):
     if (
-        role == model.Roles.administrative
-        or role == model.Roles.informationSupport
-        or role == model.Roles.nurse
-        or role == model.Roles.doctor
-        or role == model.Roles.humanResources
+        role == Enums.Roles.administrative
+        or role == Enums.Roles.informationSupport
+        or role == Enums.Roles.nurse
+        or role == Enums.Roles.doctor
+        or role == Enums.Roles.humanResources
     ):
         return role
     else:
@@ -106,7 +106,7 @@ def roleValidator(role: str):
 
 
 def genderValidator(gender: str):
-    if gender == model.Gender.male or gender == model.Gender.female:
+    if gender == Enums.Gender.male or gender == Enums.Gender.female:
         return gender
     else:
         raise Exception("El genero no es valido")

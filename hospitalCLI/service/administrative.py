@@ -1,19 +1,20 @@
+from models import Enums
 from utils import log
-from models import model
+from models import Person, Administrative, Hospital
 from utils import search
 
 
 def selectGender():
-    newGender = model.Gender.male
+    newGender = Enums.Gender.male
 
     while True:
         log.printInfo("1. Másculino\n2. Femenino")
         role = log.inputQuestion("Ingrese el genero: ")
         if role == "1":
-            newGender = model.Gender.male
+            newGender = Enums.Gender.male
             break
         elif role == "2":
-            newGender = model.Gender.female
+            newGender = Enums.Gender.female
             break
 
         else:
@@ -41,7 +42,7 @@ def selectInsuranceStatus():
     return newStatus
 
 
-def createPatient(user: model.Administrative, hospital: model.Hospital):
+def createPatient(user: Administrative.Administrative, hospital: Hospital.Hospital):
     id: int = int(log.inputOption("Ingrese la cedula: "))
     name: str = log.inputOption("Ingrese el nombre: ")
     birthDate: str = log.inputOption("Ingrese la fecha de nacimiento(dd/mm/yyyy): ")
@@ -75,7 +76,7 @@ def createPatient(user: model.Administrative, hospital: model.Hospital):
         return None
 
     try:
-        newPatient: model.Person = user.createPatient(
+        newPatient: Person.Person = user.createPatient(
             id,
             name,
             birthDate,
@@ -99,5 +100,5 @@ def createPatient(user: model.Administrative, hospital: model.Hospital):
     log.printSuccess("Usuario creado con exito")
 
 
-def printPatients(user: model.Administrative, hospital: model.Hospital):
+def printPatients(user: Administrative.Administrative, hospital: Hospital.Hospital):
     user.printPatients(hospital)
