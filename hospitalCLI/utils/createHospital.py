@@ -1,5 +1,12 @@
 from models import Enums
-from models import HumanResources, Administrative, Patient, Hospital, InformationSupport
+from models import (
+    HumanResources,
+    Administrative,
+    Patient,
+    Hospital,
+    InformationSupport,
+    Doctor,
+)
 
 
 def createHospital():
@@ -52,9 +59,21 @@ def createHospital():
         phone="1234567890",
     )
 
+    doctor1 = Doctor.Doctor(
+        id=2,
+        name="Doctor 1",
+        username="doctor1",
+        address="calle 123",
+        birthDate="28/01/2003",
+        email="doctor1@correo.com",
+        password="Doctor1234",
+        phone="1234567890",
+    )
+
     hospital.humanResources.append(humanResources1)
     hospital.administratives.append(administrative1)
     hospital.patients.append(patient1)
     hospital.informationSupports.append(informationSupport1)
+    hospital.doctors.append(doctor1)
 
     return hospital

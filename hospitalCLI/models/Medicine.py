@@ -5,6 +5,7 @@ from utils import validators, log
 
 class Medicine:
     def __init__(self, name, price, quantity):
+        self.id = uuid.uuid4()
         self.name = validators.stringValidator(name)
         self.price = validators.integerValidator(price)
         self.quantity = validators.integerValidator(quantity)

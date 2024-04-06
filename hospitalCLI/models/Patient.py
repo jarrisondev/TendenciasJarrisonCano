@@ -1,5 +1,7 @@
 import datetime
-from utils import validators
+from models import Medicine, Doctor
+from utils import validators, log
+import uuid
 
 
 class Patient:
@@ -51,5 +53,41 @@ class Patient:
             medicalInsuranceExpirationDate
         )
 
+        self.clinicHistory = {
+            "medicines": [],
+            "consultations": [],
+            "treatments": [],
+        }
+
     def getAge(self):
         return datetime.date.today().year - int(self.birthDate[6:])
+
+    def addMedicine(self, medicine: Medicine.Medicine, doctor: Doctor.Doctor):
+        dose = log.inputOption("Ingrese la dosis del medicamento: ")
+        duration = log.inputOption("Ingrese la duracion del tratamiento: ")
+
+        newMedicine = {
+            "id": medicine.id,
+            "doctorId": doctor.id,
+            "dose": dose,
+            "duration": duration,
+        }
+
+        self.clinicHistory["medicines"].append(newMedicine)
+
+    def addConsultation(self, doctor: Doctor.Doctor):
+
+        reason = log.inputOption("Ingrese la razon de la consulta: ")
+        diagnosis = log.inputOption("Ingrese el diagnostico: ")
+        treatment = log.inputOption("Ingrese el tratamiento: ")
+
+        newConsultation = {
+            "id": uuid.uuid4(),
+            "date": datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+            "doctorId": doctor.id,
+            "reason": reason,
+            "diagnosis": diagnosis,
+            "treatment": treatment,
+        }
+
+        self.clinicHistory["consultations"].append(newConsultation)
