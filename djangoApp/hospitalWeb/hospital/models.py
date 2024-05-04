@@ -63,3 +63,35 @@ class Patient(models.Model):
     medicalInsuranceNumber = models.IntegerField()
     medicalInsuranceStatus = models.BooleanField()
     medicalInsuranceExpirationDate = models.DateField()
+
+
+class Order(models.Model):
+    id = models.AutoField(primary_key=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    createdAt = models.DateTimeField(auto_now_add=True)
+
+
+class MedicineOrder(models.Model):
+    id = models.AutoField(primary_key=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+
+
+class ProcedureOrder(models.Model):
+    id = models.AutoField(primary_key=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    price = models.FloatField()
+    quantity = models.IntegerField()
+    requireAssistance = models.BooleanField()
+
+
+class DiagnosticHelpOrder(models.Model):
+    id = models.AutoField(primary_key=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    price = models.FloatField()
+    quantity = models.IntegerField()
+    requireAssistance = models.BooleanField()

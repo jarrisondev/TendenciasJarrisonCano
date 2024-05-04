@@ -1,5 +1,13 @@
 from rest_framework import serializers
-from hospital.models import Patient, Employee, Medicine
+from hospital.models import (
+    Patient,
+    Employee,
+    Medicine,
+    Order,
+    MedicineOrder,
+    ProcedureOrder,
+    DiagnosticHelpOrder,
+)
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -82,4 +90,77 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
         instance.save()
 
+        return instance
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = "__all__"
+
+    def create(self, validated_data):
+        return Order.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.patient = validated_data.get("patient", instance.patient)
+        instance.doctor = validated_data.get("doctor", instance.doctor)
+
+        instance.save()
+        return instance
+
+
+class MedicineOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MedicineOrder
+        fields = "__all__"
+
+    def create(self, validated_data):
+        return MedicineOrder.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.medicine = validated_data.get("medicine", instance.medicine)
+        instance.quantity = validated_data.get("quantity", instance.quantity)
+        instance.order = validated_data.get("order", instance.order)
+        instance.save()
+        return instance
+
+
+class ProcedureOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProcedureOrder
+        fields = "__all__"
+
+    def create(self, validated_data):
+        return ProcedureOrder.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get("name", instance.name)
+        instance.order = validated_data.get("order", instance.order)
+        instance.price = validated_data.get("price", instance.price)
+        instance.quantity = validated_data.get("quantity", instance.quantity)
+        instance.requireAssistance = validated_data.get(
+            "requireAssistance", instance.requireAssistance
+        )
+
+        instance.save()
+        return instance
+
+
+class DiagnosticHelpOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiagnosticHelpOrder
+        fields = "__all__"
+
+    def create(self, validated_data):
+        return DiagnosticHelpOrder.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get("name", instance.name)
+        instance.order = validated_data.get("order", instance.order)
+        instance.price = validated_data.get("price", instance.price)
+        instance.quantity = validated_data.get("quantity", instance.quantity)
+        instance.requireAssistance = validated_data.get(
+            "requireAssistance", instance.requireAssistance
+        )
+        instance.save()
         return instance
