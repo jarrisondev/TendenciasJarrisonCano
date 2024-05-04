@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from hospital.models import Patient, Employee, Medicine, GENDER, CONTACT_RELATIONSHIP
+from hospital.models import Patient, Employee, Medicine
 
 
 class PatientSerializer(serializers.ModelSerializer):
@@ -56,6 +56,29 @@ class MedicineSerializer(serializers.ModelSerializer):
         instance.name = validated_data.get("name", instance.name)
         instance.price = validated_data.get("price", instance.price)
         instance.quantity = validated_data.get("quantity", instance.quantity)
+
+        instance.save()
+
+        return instance
+
+
+class EmployeeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Employee
+        fields = "__all__"
+
+    def create(self, validated_data):
+        return Employee.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get("name", instance.name)
+        instance.username = validated_data.get("username", instance.username)
+        instance.password = validated_data.get("password", instance.password)
+        instance.email = validated_data.get("email", instance.email)
+        instance.phone = validated_data.get("phone", instance.phone)
+        instance.birthDate = validated_data.get("birthDate", instance.birthDate)
+        instance.address = validated_data.get("address", instance.address)
+        instance.role = validated_data.get("role", instance.role)
 
         instance.save()
 

@@ -2,8 +2,12 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from hospital.models import Patient, Medicine
-from hospital.serializers import PatientSerializer, MedicineSerializer
+from hospital.models import Patient, Medicine, Employee
+from hospital.serializers import (
+    PatientSerializer,
+    MedicineSerializer,
+    EmployeeSerializer,
+)
 
 
 class PatientView(APIView):
@@ -71,4 +75,38 @@ class MedicineView(APIView):
     def delete(self, request, pk):
         medicine = self.get_object(pk)
         medicine.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class EmployeeView(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Employee.objects.get(id=pk)
+        except Employee.DoesNotExist:
+            raise Http404
+
+    def get(self, request):
+        employees = Employee.objects.all()
+        serializer = EmployeeSerializer(employees, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = EmployeeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, pk):
+        employee = self.get_object(pk)
+        serializer = EmployeeSerializer(employee, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        employee = self.get_object(pk)
+        employee.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
