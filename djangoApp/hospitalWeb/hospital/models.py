@@ -1,16 +1,22 @@
 from django.db import models
 
-# Create your models here.
+
+GENDER = {("MALE", "MALE"), ("FEMALE", "FEMALE")}
+
+CONTACT_RELATIONSHIP = {
+    ("Father", "Father"),
+    ("Mother", "Mother"),
+    ("Brother", "Brother"),
+    ("Sister", "Sister"),
+    ("Son", "Son"),
+    ("Daughter", "Daughter"),
+    ("Friend", "Friend"),
+    ("Other", "Other"),
+}
 
 
-# Hospital
-class Hospital(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-
-
-# Person
-class Person(models.Model):
+# Employee
+class Employee(models.Model):
     ROLE = {
         ("Doctor", "Doctor"),
         ("Nurse", "Nurse"),
@@ -20,7 +26,6 @@ class Person(models.Model):
     }
 
     id = models.AutoField(primary_key=True)
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
@@ -34,7 +39,6 @@ class Person(models.Model):
 # Medicine
 class Medicine(models.Model):
     id = models.AutoField(primary_key=True)
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     price = models.FloatField()
     quantity = models.IntegerField()
@@ -43,21 +47,7 @@ class Medicine(models.Model):
 # Patient
 class Patient(models.Model):
 
-    GENEDER = {("MALE", "MALE"), ("FEMALE", "FEMALE")}
-
-    CONTACT_RELATIONSHIP = {
-        ("Father", "Father"),
-        ("Mother", "Mother"),
-        ("Brother", "Brother"),
-        ("Sister", "Sister"),
-        ("Son", "Son"),
-        ("Daughter", "Daughter"),
-        ("Friend", "Friend"),
-        ("Other", "Other"),
-    }
-
     id = models.AutoField(primary_key=True)
-    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     birthDate = models.DateField()
     phone = models.CharField(max_length=15)
@@ -65,7 +55,7 @@ class Patient(models.Model):
     address = models.CharField(max_length=100)
     emergencyContactName = models.CharField(max_length=100)
     emergencyContactPhone = models.CharField(max_length=15)
-    gender = models.CharField(max_length=100, choices=GENEDER)
+    gender = models.CharField(max_length=100, choices=GENDER)
     emergencyContactRelationship = models.CharField(
         max_length=100, choices=CONTACT_RELATIONSHIP
     )
