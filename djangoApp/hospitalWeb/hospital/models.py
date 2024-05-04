@@ -74,14 +74,18 @@ class Order(models.Model):
 
 class MedicineOrder(models.Model):
     id = models.AutoField(primary_key=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name="medicineOrder"
+    )
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE)
     quantity = models.IntegerField()
 
 
 class ProcedureOrder(models.Model):
     id = models.AutoField(primary_key=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name="procedureOrder"
+    )
     name = models.CharField(max_length=100)
     price = models.FloatField()
     quantity = models.IntegerField()
@@ -90,7 +94,9 @@ class ProcedureOrder(models.Model):
 
 class DiagnosticHelpOrder(models.Model):
     id = models.AutoField(primary_key=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name="diagnosticHelpOrder"
+    )
     name = models.CharField(max_length=100)
     price = models.FloatField()
     quantity = models.IntegerField()

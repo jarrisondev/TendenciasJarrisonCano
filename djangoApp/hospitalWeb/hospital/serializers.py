@@ -93,22 +93,6 @@ class EmployeeSerializer(serializers.ModelSerializer):
         return instance
 
 
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = "__all__"
-
-    def create(self, validated_data):
-        return Order.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.patient = validated_data.get("patient", instance.patient)
-        instance.doctor = validated_data.get("doctor", instance.doctor)
-
-        instance.save()
-        return instance
-
-
 class MedicineOrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicineOrder
@@ -162,5 +146,34 @@ class DiagnosticHelpOrderSerializer(serializers.ModelSerializer):
         instance.requireAssistance = validated_data.get(
             "requireAssistance", instance.requireAssistance
         )
+        instance.save()
+        return instance
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    medicineOrder = MedicineOrderSerializer(many=True, read_only=True)
+    procedureOrder = ProcedureOrderSerializer(many=True, read_only=True)
+    diagnosticHelpOrder = DiagnosticHelpOrderSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Order
+        fields = [
+            "id",
+            "patient",
+            "doctor",
+            "createdAt",
+            "medicineOrder",
+            "procedureOrder",
+            "diagnosticHelpOrder",
+        ]
+
+    def create(self, validated_data):
+        print(validated_data)
+        return Order.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.patient = validated_data.get("patient", instance.patient)
+        instance.doctor = validated_data.get("doctor", instance.doctor)
+
         instance.save()
         return instance
