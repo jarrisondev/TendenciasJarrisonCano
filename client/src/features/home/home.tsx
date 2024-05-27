@@ -1,11 +1,29 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 import { useLocation } from 'wouter'
+import { z } from 'zod'
+
+const schema = z.object({
+  username: z.string().min(1, 'El nombre de usuario es requerido'),
+  password: z.string().min(1, 'La contraseña es requerida'),
+})
+
+type Schema = z.infer<typeof schema>
 
 export const Home = () => {
-  const [location, setLocation] = useLocation()
+  const [, setLocation] = useLocation()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Schema>({
+    resolver: zodResolver(schema),
+  })
 
-  const handleSubmit = () => {
+  const onSubmit = (data: Schema) => {
+    console.log(data)
     setLocation('/dashboard')
   }
 
@@ -17,11 +35,20 @@ export const Home = () => {
           Hostipal Andres TDEA es un hospital de alto estandar que brinda servicios de salud a la comunidad de la ciudad
           de Medellín y alrededores.
         </p>
-        <Input placeholder="Correo electrónico" />
-        <Input type="password" placeholder="Contraseña" className="mt-4" />
-        <Button className="mt-8" onClick={handleSubmit}>
-          Iniciar sesión
-        </Button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            placeholder="Nombre de usuario"
+            {...register('username')}
+            className={errors.username ? 'border-red-500 text-red-500' : ''}
+          />
+          <Input
+            type="password"
+            placeholder="Contraseña"
+            {...register('password')}
+            className={`mt-4 ${errors.password ? 'border-red-500 text-red-500' : ''}`}
+          />
+          <Button className="mt-8">Iniciar sesión</Button>
+        </form>
       </div>
     </div>
   )

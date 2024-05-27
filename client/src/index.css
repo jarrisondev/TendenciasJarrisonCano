@@ -75,6 +75,11 @@
   }
 }
 
+input,
+input:focus {
+  outline: 0px !important;
+  -webkit-appearance: none;
+}
 body {
   font-family: 'Nunito', sans-serif;
   background-color: transparent;

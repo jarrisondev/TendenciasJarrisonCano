@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Link } from 'wouter'
 import { UserNav } from './components/UserNav'
-import { Input } from '@/components/ui/input'
 
 export const Dashboard = () => {
   return (
