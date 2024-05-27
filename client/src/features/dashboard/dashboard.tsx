@@ -32,7 +32,6 @@ export const Dashboard = () => {
             </Link>
           </nav>
           <div className="ml-auto flex items-center space-x-4">
-            <Input type="search" placeholder="Search..." className="md:w-[100px] lg:w-[300px]" />
             <UserNav />
           </div>
         </div>
