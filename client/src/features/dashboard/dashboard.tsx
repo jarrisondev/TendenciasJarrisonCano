@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Link } from 'wouter'
 import { UserNav } from './components/UserNav'
+import { ModeToggle } from '@/components/modeToggle'
 
 export const Dashboard = () => {
   return (
@@ -33,6 +34,7 @@ export const Dashboard = () => {
             </Link>
           </nav>
           <div className="ml-auto flex items-center space-x-4">
+            <ModeToggle />
             <UserNav />
           </div>
         </div>
