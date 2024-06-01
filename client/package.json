@@ -24,6 +24,7 @@
     "react": "19.0.0-beta-26f2496093-20240514",
     "react-dom": "19.0.0-beta-26f2496093-20240514",
     "react-hook-form": "^7.51.5",
+    "react-query": "^3.39.3",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "wouter": "^3.1.3",

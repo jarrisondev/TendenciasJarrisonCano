@@ -8,8 +8,12 @@ import { routes } from '@/lib/routes'
 interface Props extends PropsWithChildren {}
 
 export const DashboardLayout: FC<Props> = ({ children }) => {
-  const [, setLoaction] = useLocation()
+  const [location, setLoaction] = useLocation()
   const user = useUserStore((state) => state.user)
+
+  const active = (path: string) => {
+    return location === path ? 'text-primary' : 'text-muted-foreground'
+  }
 
   if (!user) {
     setLoaction(routes.home)
@@ -24,14 +28,17 @@ export const DashboardLayout: FC<Props> = ({ children }) => {
             <h2 className="text-3xl font-bold tracking-tight">Hospital</h2>
 
             {user.role === 'Doctor' && (
-              <Link to={routes.patients} className="text-sm font-medium transition-colors hover:text-primary">
+              <Link
+                to={routes.patients}
+                className={`${active(routes.patients)} text-sm font-medium transition-colors hover:text-primary`}
+              >
                 Pacientes
               </Link>
             )}
             {user.role === 'Administrative' && (
               <Link
                 to={routes.employee}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className={`${active(routes.employee)} text-sm font-medium  transition-colors hover:text-primary `}
               >
                 Empleados
               </Link>
@@ -39,7 +46,7 @@ export const DashboardLayout: FC<Props> = ({ children }) => {
             {(user.role === 'Doctor' || user.role === 'Nurse') && (
               <Link
                 to={routes.medications}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className={`${active(routes.medications)} text-sm font-medium  transition-colors hover:text-primary `}
               >
                 Medicamentos
               </Link>
@@ -47,7 +54,7 @@ export const DashboardLayout: FC<Props> = ({ children }) => {
             {user.role === 'Doctor' && (
               <Link
                 to={routes.orders}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className={`${active(routes.orders)} text-sm font-medium  transition-colors hover:text-primary `}
               >
                 Ordenes
               </Link>
