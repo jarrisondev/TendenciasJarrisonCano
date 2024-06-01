@@ -52,12 +52,38 @@ export const DashboardLayout: FC<Props> = ({ children }) => {
               </Link>
             )}
             {user.role === 'Doctor' && (
-              <Link
-                to={routes.orders}
-                className={`${active(routes.orders)} text-sm font-medium  transition-colors hover:text-primary `}
-              >
-                Ordenes
-              </Link>
+              <>
+                <Link
+                  to={routes.orders}
+                  className={`${active(routes.orders)} text-sm font-medium  transition-colors hover:text-primary `}
+                >
+                  Ordenes
+                </Link>
+                <Link
+                  to={routes.medicineOrder}
+                  className={`${active(
+                    routes.medicineOrder,
+                  )} text-sm font-medium  transition-colors hover:text-primary `}
+                >
+                  Ordenes de medicamentos
+                </Link>
+                <Link
+                  to={routes.procedureOrder}
+                  className={`${active(
+                    routes.procedureOrder,
+                  )} text-sm font-medium  transition-colors hover:text-primary `}
+                >
+                  Ordenes de procedimientos
+                </Link>
+                <Link
+                  to={routes.diagnosticHelpOrder}
+                  className={`${active(
+                    routes.diagnosticHelpOrder,
+                  )} text-sm font-medium  transition-colors hover:text-primary `}
+                >
+                  Ordenes de ayudas diagnosticas
+                </Link>
+              </>
             )}
           </nav>
           <div className="ml-auto flex items-center space-x-4">

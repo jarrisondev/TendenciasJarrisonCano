@@ -2,12 +2,11 @@ import { FC } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { IEmployee, useCreateEmployee, useUpdateEmployee } from './services'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Roles } from '@/store/useUserStore'
 
 const schema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
@@ -28,8 +27,7 @@ interface Props {
 export const Employee: FC<Props> = ({ item, onClose }) => {
   const {
     register,
-    setValue,
-    watch,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<IEmployee>({
@@ -110,23 +108,29 @@ export const Employee: FC<Props> = ({ item, onClose }) => {
           {...register('password')}
           className={errors.password ? 'border-red-500 text-red-500' : ''}
         />
-        <Select
-          value={watch('role')}
-          onValueChange={(value) => {
-            setValue('role', value as Roles)
-          }}
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Rol" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="Administrative">Administrativo</SelectItem>
-              <SelectItem value="Doctor">Doctor</SelectItem>
-              <SelectItem value="Nurse">Enfermero</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <Controller
+          control={control}
+          name="role"
+          render={({ field }) => (
+            <Select
+              value={field.value}
+              onValueChange={(value) => {
+                field.onChange(value)
+              }}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Rol" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="Administrative">Administrativo</SelectItem>
+                  <SelectItem value="Doctor">Doctor</SelectItem>
+                  <SelectItem value="Nurse">Enfermero</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          )}
+        />
 
         <div className="flex justify-end">
           <Button onClick={handleSubmit(item.id ? handleUpdateMedicine : handleCreateMedicine)}>
