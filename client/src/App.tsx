@@ -11,6 +11,7 @@ import { Employees } from './features/employees'
 import { Orders } from './features/orders'
 import { MedicinesOrder } from './features/medicinesOrder'
 import { ProceduresOrder } from './features/proceduresOrder'
+import { DiagnosticHelpOrders } from './features/diagnosticHelpOrders'
 
 const queryClient = new QueryClient()
 
@@ -74,6 +75,14 @@ function App() {
             component={() => (
               <DashboardLayout>
                 <ProceduresOrder />
+              </DashboardLayout>
+            )}
+          />
+          <Route
+            path={routes.diagnosticHelpOrder}
+            component={() => (
+              <DashboardLayout>
+                <DiagnosticHelpOrders />
               </DashboardLayout>
             )}
           />
