@@ -25,7 +25,8 @@ SECRET_KEY = "django-insecure-8@)!p0+y@8-^&6gpu=w$r5p%tmg^q@&!9@7%*sox6ed+xhdk9z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -58,6 +60,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "hospitalWeb.urls"
@@ -89,13 +93,13 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     },
-    "mongo": {
-        "ENGINE": "djongo",
-        "NAME": "hospitalweb-mongodb",
-        "CLIENT": {
-            "host": "mongodb://localhost:27017",
-        },
-    },
+    # "mongo": {
+    #     "ENGINE": "djongo",
+    #     "NAME": "hospitalweb-mongodb",
+    #     "CLIENT": {
+    #         "host": "mongodb://localhost:27017",
+    #     },
+    # },
 }
 
 
