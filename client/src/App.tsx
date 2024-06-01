@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { Employees } from './features/employees'
 import { Orders } from './features/orders'
 import { MedicinesOrder } from './features/medicinesOrder'
+import { ProceduresOrder } from './features/proceduresOrder'
 
 const queryClient = new QueryClient()
 
@@ -65,6 +66,14 @@ function App() {
             component={() => (
               <DashboardLayout>
                 <MedicinesOrder />
+              </DashboardLayout>
+            )}
+          />
+          <Route
+            path={routes.procedureOrder}
+            component={() => (
+              <DashboardLayout>
+                <ProceduresOrder />
               </DashboardLayout>
             )}
           />
