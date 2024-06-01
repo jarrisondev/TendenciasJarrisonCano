@@ -21,6 +21,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "eslint-plugin-react-compiler": "0.0.0-experimental-c8b3f72-20240517",
+    "exceljs": "^4.4.0",
     "lucide-react": "^0.378.0",
     "react": "19.0.0-beta-26f2496093-20240514",
     "react-dom": "19.0.0-beta-26f2496093-20240514",
