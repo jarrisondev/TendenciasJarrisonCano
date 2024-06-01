@@ -1,21 +1,15 @@
 import { BASE_URL } from '@/lib/constants'
 import { useMutation, useQuery } from 'react-query'
+import { IMedicineOrder } from '../medicinesOrder/services'
 
 export interface IOrder {
   id?: number
   patient: number
   doctor: number
   createdAt: Date
-  medicineOrder: MedicineOrder[]
+  medicineOrder: IMedicineOrder[]
   procedureOrder: ProcedureOrder[]
   diagnosticHelpOrder: DiagnosticHelpOrder[]
-}
-
-export interface MedicineOrder {
-  id: number
-  quantity: number
-  order: number
-  medicine: number
 }
 
 export interface ProcedureOrder {
