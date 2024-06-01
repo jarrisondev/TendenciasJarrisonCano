@@ -2,7 +2,8 @@ import { ModeToggle } from '@/components/modeToggle'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { BASE_URL } from '@/lib/constants'
-import { useUserStore } from '@/store/useUserStore'
+import { routes } from '@/lib/routes'
+import { User, useUserStore } from '@/store/useUserStore'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTransition } from 'react'
 import { useForm } from 'react-hook-form'
@@ -40,9 +41,10 @@ export const Home = () => {
           body: JSON.stringify(data),
         })
         if (res.ok) {
-          const user = await res.json()
+          const user: User = await res.json()
           setUser(user)
-          setLocation('/dashboard')
+          if (user.role === 'Doctor') setLocation(routes.patients)
+          else setLocation(routes.medications)
         } else {
           setError('username', { message: 'Usuario o contraseña incorrectos' })
           setError('password', { message: 'Usuario o contraseña incorrectos' })

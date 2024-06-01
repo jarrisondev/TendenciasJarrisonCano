@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-export type Roles = 'Nurse' | 'Doctor' | 'Admin'
+export type Roles = 'Nurse' | 'Doctor' | 'Administrative'
 
-interface User {
-  id: 1
+export interface User {
+  id: number
   name: string
   username: string
   password: string
@@ -12,7 +12,7 @@ interface User {
   phone: string
   birthDate: string
   address: string
-  role: string
+  role: Roles
 }
 
 interface UserStore {
