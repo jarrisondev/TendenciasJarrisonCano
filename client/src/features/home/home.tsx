@@ -44,6 +44,7 @@ export const Home = () => {
           const user: User = await res.json()
           setUser(user)
           if (user.role === 'Doctor') setLocation(routes.patients)
+          else if (user.role === 'Administrative') setLocation(routes.employee)
           else setLocation(routes.medications)
         } else {
           setError('username', { message: 'Usuario o contraseña incorrectos' })
