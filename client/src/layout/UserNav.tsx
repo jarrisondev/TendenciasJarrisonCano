@@ -9,9 +9,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Link } from 'wouter'
+import { useUserStore } from '@/store/useUserStore'
 
 export const UserNav = () => {
+  const logout = useUserStore((state) => state.logout)
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,9 +39,13 @@ export const UserNav = () => {
           <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <Link to="/" className="block">
-          <DropdownMenuItem>Log out</DropdownMenuItem>
-        </Link>
+        <DropdownMenuItem
+          onClick={() => {
+            logout()
+          }}
+        >
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
