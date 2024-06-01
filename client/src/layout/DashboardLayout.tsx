@@ -61,6 +61,9 @@ export const DashboardLayout: FC<Props> = ({ children }) => {
             )}
           </nav>
           <div className="ml-auto flex items-center space-x-4">
+            <p className="font-light">
+              Hola <span className="font-semibold"> {user.name}!</span>
+            </p>
             <ModeToggle />
             <UserNav />
           </div>
