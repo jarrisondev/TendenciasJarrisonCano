@@ -40,7 +40,7 @@ python ./main.py
 py ./main.py
 ```
 
-> [!NOTE]
+> [!IMPORTANT]
 > Es necesario tener **python3** instalado. [Descargalo aquí](https://www.python.org/downloads/)
 ---
 
@@ -60,6 +60,9 @@ pip install -f requirements.txt
 ```bash
 python manage.py runserver
 ```
+
+> [!NOTE]
+> Tengo un postman con ejemplos de los distintos endpoints que tiene la app. [Miralo aquí](https://www.postman.com/jarrisoncano/workspace/tendencias-de-desarrollo/collection/18455339-71f65d8b-8832-4c48-96b5-a04fe5ad3249)
 
 ---
 
@@ -81,5 +84,5 @@ npm run dev
 ```
 4. Acceder a la url indicada en la terminal
 
-> [!NOTE]
+> [!IMPORTANT]
 > Debes tener **node.js** instalado. comprueba escribiendo ```node --version``` en tu terminal. En caso de no estar instalado [Descargalo aqui](https://nodejs.org/en)
