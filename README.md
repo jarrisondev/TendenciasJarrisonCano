@@ -19,7 +19,6 @@ A continuación está el paso a paso de como ejecutar cada uno de los proyectos.
 
 ---
 ## Cómo ejecutar el proyecto HospitalCLI
-Antes de seguir con los siguientes pasos es necesario tener python3 instalado.
 
 1. Clonar el proyecto
 ```bash
