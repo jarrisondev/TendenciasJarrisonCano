@@ -61,7 +61,7 @@ python manage.py runserver
 ```
 
 > [!TIP]
-> Tengo un postman con ejemplos de los distintos endpoints que tiene la app. [Miralo aquí](https://www.postman.com/jarrisoncano/workspace/tendencias-de-desarrollo/collection/18455339-71f65d8b-8832-4c48-96b5-a04fe5ad3249)
+> Tengo un postman con ejemplos de los distintos endpoints que tiene la app. [Miralo aquí](https://www.postman.com/fdc-dash/pulbic-workspace/collection/18455339-71f65d8b-8832-4c48-96b5-a04fe5ad3249?action=share&source=copy-link&creator=0)
 
 ---
 
